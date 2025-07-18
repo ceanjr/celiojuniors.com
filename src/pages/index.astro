@@ -1,21 +1,16 @@
 ---
-const title = "Bem-vindo ao meu blog!";
+import BaseLayout from '../layouts/BaseLayout.astro';
+const allPosts = await Astro.glob('./posts/*.md');
 ---
 
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>{title}</title>
-  </head>
-  <body>
-    <a href="/">Início</a>
-    <a href="/">Sobre</a>
-    <h1>{title}</h1>
-    <p>Este é meu primeiro blog feito com Astro!</p>
-    <ul>
-      <li><a href="/posts/post-1/">Postagem 1</a></li>
-            <li><a href="/posts/post-2/">Postagem 2</a></li>
-      <li><a href="/posts/post-3/">Postagem 3</a></li>
-    </ul>
-  </body>
-</html>
+<BaseLayout title="Início - Blog">
+  <ul>
+    {
+      allPosts.map((post) => (
+        <li>
+          <a href={post.url}>{post.frontmatter.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

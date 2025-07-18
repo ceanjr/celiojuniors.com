@@ -1,0 +1,21 @@
+---
+import '../styles/global.css';
+const { title } = Astro.props;
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <!-- TODO Criar cabeçalho -->
+    <!-- TODO Transformar header em componente -->
+    <header>
+      <a href="/">Início</a>
+      <a href="/about">Sobre</a>
+    </header>
+    <slot />
+    <!-- TODO Criar barra lateral -->
+  </body>
+</html>
