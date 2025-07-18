@@ -1,6 +1,6 @@
 @import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 
-/* TODO Aprender a usar variáveis com taiwindCSS no Astro */
 @theme {
   --font-sans: 'Montserrat', sans-serif;
 
