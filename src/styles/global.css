@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
+/* TODO Pesquisar sobre dark mode no tailwind */
+
 @theme {
   --font-sans: 'Montserrat', sans-serif;
 
@@ -8,3 +10,16 @@
   --color-primary: #d9d9d9;
   --color-border: #1b263b;
 }
+
+/* h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+code,
+p,
+a {
+  color: var(--color-primary);
+} */
