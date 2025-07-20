@@ -6,15 +6,15 @@
 @theme {
   --font-sans: 'Montserrat', sans-serif;
 
-  --color-main: #0d1b2a;
-  --color-primary: #d9d9d9;
-  --color-border: #1b263b;
-}
-
-:root.dark {
   --color-main: #d9d9d9;
   --color-primary: #0d1b2a;
-  --color-border: #8d99ae;
+  --color-border: #1b263b;
+
+  --color-dark-main: #0d1b2a;
+  --color-dark-primary: #d9d9d9;
+  --color-dark-border: #1b263b;
+
+  --breakpoint-desktop: 1170px;
 }
 
 @layer components {
@@ -49,4 +49,16 @@
     background-color: var(--color-main);
     color: var(--color-primary);
   }
+
+  body.dark {
+    --color-main: var(--color-dark-main);
+    --color-primary: var(--color-dark-primary);
+    --color-border: var(--color-dark-border);
+  }
+}
+
+header,
+aside,
+main {
+  border: 1px solid red;
 }

@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import Aside from '../components/Aside.astro';
+
+import { Lightbulb } from '@lucide/astro';
 
 const { title } = Astro.props;
 ---
@@ -16,9 +19,27 @@ const { title } = Astro.props;
       rel="stylesheet"
     />
   </head>
-  <body>
-    <Header />
-    <slot />
-    <!-- TODO Criar barra lateral -->
+  <body class="dark">
+    <div
+      class="grid grid-cols-1 grid-rows-[auto_1fr_auto] desktop:grid-cols-[310px_1fr_48px] desktop:grid-rows-none min-h-screen"
+    >
+      <Header />
+      <main>
+        <slot />
+      </main>
+      <Aside class="flex flex-col-reverse items-center py-4">
+        <i class="cursor-pointer" id="toggle-theme">
+          <Lightbulb />
+        </i>
+      </Aside>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('toggle-theme');
+        toggle.addEventListener('click', () => {
+          document.body.classList.toggle('dark');
+        });
+      });
+    </script>
   </body>
 </html>
