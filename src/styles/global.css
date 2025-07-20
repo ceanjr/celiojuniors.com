@@ -8,11 +8,15 @@
 
   --color-main: #d9d9d9;
   --color-primary: #0d1b2a;
+  --color-hover: #ff4f8c;
   --color-border: #1b263b;
+  --color-muted: #3d3d3d;
 
-  --color-dark-main: #0d1b2a;
-  --color-dark-primary: #d9d9d9;
+  --color-dark-main: #030712;
+  --color-dark-primary: #ffffff;
+  --color-dark-hover: #00bac9;
   --color-dark-border: #1b263b;
+  --color-dark-muted: #dbdbdb;
 
   --breakpoint-desktop: 1170px;
 }
@@ -54,11 +58,13 @@
     --color-main: var(--color-dark-main);
     --color-primary: var(--color-dark-primary);
     --color-border: var(--color-dark-border);
+    --color-hover: var(--color-dark-hover);
+    --color-muted: var(--color-dark-muted);
   }
 }
 
 header,
 aside,
 main {
-  border: 1px solid red;
+  border: 1px solid var(--color-border);
 }
