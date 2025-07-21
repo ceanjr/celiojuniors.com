@@ -4,8 +4,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Aside from '../components/Aside.astro';
 
-import { Lightbulb, ArrowUp } from '@lucide/astro';
-import { Icon } from 'astro-icon/components';
+import { Lightbulb, ArrowUp, Home } from '@lucide/astro';
 import Social from '../components/Social.astro';
 
 interface Props {
@@ -37,7 +36,7 @@ const {
     />
   </head>
   <body
-    class="grid grid-cols-1 grid-rows-[auto_1fr_auto] desktop:grid-cols-[310px_1fr_48px] desktop:grid-rows-none min-h-screen"
+    class="grid grid-cols-1 grid-rows-[auto_1fr_auto] desktop:grid-cols-[310px_1fr_48px] desktop:grid-rows-none h-screen"
   >
     <Header
       class="flex desktop:flex-col desktop:items-center desktop:py-16 justify-between px-4 py-2 border-b-2 desktop:border-r-2 border-border"
@@ -46,14 +45,12 @@ const {
         id="profile"
         class="flex desktop:flex-col desktop:gap-0 gap-6 items-center desktop:mb-18"
       >
-        <a href="/">
-          <img
-            src="/images/perfil.jpeg"
-            alt="Foto de Célio Júnior"
-            class="rounded-full w-12 h-12 desktop:w-24 desktop:h-24 desktop:mb-4 hover:outline-3 hover:outline-hover"
-            loading="lazy"
-          />
-        </a>
+        <img
+          src="/images/perfil.jpeg"
+          alt="Foto de Célio Júnior"
+          class="rounded-full w-12 h-12 desktop:w-24 desktop:h-24 desktop:mb-4"
+          loading="lazy"
+        />
         <a href="/">
           <h3 class="text-xl font-semibold desktop:mb-1 hover:text-hover">
             Célio Júnior
@@ -102,7 +99,9 @@ const {
       />
     </Header>
 
-    <main class="relative">
+    <main
+      class="relative overflow-auto h-full min-h-screen flex justify-center"
+    >
       <slot />
       <nav
         id="mobile-menu"
@@ -128,22 +127,28 @@ const {
     </main>
 
     <Aside
-      class="flex flex-row-reverse desktop:flex-col-reverse desktop:items-center justify-between desktop:justify-baseline desktop:py-4 border-t-2 desktop:border-l-2 desktop:border-t-0 border-border px-2"
+      class="flex flex-row-reverse desktop:flex-col-reverse desktop:items-center justify-between desktop:justify-baseline px-2 desktop:py-4 border-t-2 desktop:border-l-2 desktop:border-t-0 border-border px-2"
     >
       <button
         id="scroll-to-top"
         aria-label="Voltar ao topo"
         class="cursor-pointer p-2 bg-background text-foreground rounded-full hover:text-hover"
       >
-        <ArrowUp />
+        <ArrowUp class="w-7 h-7" />
       </button>
-      <button
-        id="toggle-theme"
-        aria-label="Toggle dark/light theme"
-        class="cursor-pointer focus:outline-none rounded-full p-2"
+      <div
+        id="left-top"
+        class="flex desktop:flex-col justify-center items-center gap-4"
       >
-        <Lightbulb class="w-8 h-8 hover:text-hover" />
-      </button>
+        <Home class="w-7 h-7 cursor-pointer text-hover" />
+        <button
+          id="toggle-theme"
+          aria-label="Toggle dark/light theme"
+          class="cursor-pointer focus:outline-none rounded-full p-2"
+        >
+          <Lightbulb class="w-7 h-7 hover:text-hover" />
+        </button>
+      </div>
     </Aside>
 
     <script is:inline>

@@ -5,7 +5,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
 <BaseLayout title={title}>
-  <article class="prose-custom lg:prose-xl">
+  <article class="prose-custom lg:prose-xl px-4 py-10">
     <slot />
+    <div class="h-5"></div>
   </article>
 </BaseLayout>

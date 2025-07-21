@@ -27,3 +27,13 @@ Bem-vindo ao meu _novo blog_ sobre aprendendo Astro! Aqui, eu irei compartilhar 
 ## O que vem a seguir
 
 Eu irei completar o tutorial do Astro, e então continuarei adicionando mais postagens. Olhe por aqui para o que vem a frente.
+
+3. **Fazendo Postagens no Blog**: Esta é minha primeira postagem no blog! Eu agora tenho páginas Astro e postagens em Markdown!
+
+## O que vem a seguir
+
+Eu irei completar o tutorial do Astro, e então continuarei adicionando mais postagens. Olhe por aqui para o que vem a frente. 3. **Fazendo Postagens no Blog**: Esta é minha primeira postagem no blog! Eu agora tenho páginas Astro e postagens em Markdown!
+
+## O que vem a seguir
+
+Eu irei completar o tutorial do Astro, e então continuarei adicionando mais postagens. Olhe por aqui para o que vem a frente.abc

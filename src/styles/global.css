@@ -9,12 +9,14 @@
   --color-hover: #00a6f4;
   --color-border: #bababa;
   --color-muted: #3d3d3d;
+  --color-scroll: #ffffff86;
 
   --color-dark-main: #030712;
   --color-dark-primary: #ffffff;
   --color-dark-hover: #00bac9;
   --color-dark-border: #1b263b;
   --color-dark-muted: #dbdbdb;
+  --color-dark-scroll: #0d1b2a85;
 
   --breakpoint-desktop: 1170px;
   --breakpoint-mobile: 240px;
@@ -70,12 +72,19 @@
   }
 
   *:hover {
-    transition: all 0.05s ease;
+    transition: all 0.01s ease;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    background: var(--color-main);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-main);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
   }
 }
-
-/* header,
-aside,
-main {
-  border: 1px solid var(--color-border);
-} */

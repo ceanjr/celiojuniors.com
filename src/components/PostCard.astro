@@ -1,0 +1,27 @@
+---
+const { post: post } = Astro.props;
+
+const date = new Date(post.data.pubDate);
+const dateFormat: Intl.DateTimeFormatOptions = {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+};
+
+const formatingDate = new Intl.DateTimeFormat('pt-BR', dateFormat);
+const finalDate = formatingDate.format(date);
+---
+
+<li
+  class="group flex items-center h-28 px-4 py-2 border-b-2 border-border cursor-pointer"
+>
+  <a href={`/blog/${post.id}/`}>
+    <span class="text-xs text-muted">{finalDate}</span>
+    <h4 class="text-2xl font-medium group-hover:text-hover">
+      {post.data.title}
+    </h4>
+    <p class="text-muted text-sm group-hover:text-hover">
+      {post.data.description}
+    </p>
+  </a>
+</li>
