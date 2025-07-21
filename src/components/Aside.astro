@@ -1,7 +1,30 @@
 ---
-const { class: classes, ...rest } = Astro.props;
+import { Lightbulb, ArrowUp, Home } from '@lucide/astro';
 ---
 
-<aside class={classes} {...rest}>
-  <slot />
+<aside
+  class="flex desktop:relative flex-row-reverse desktop:flex-col-reverse desktop:items-center justify-between desktop:justify-baseline px-2 desktop:py-4 border-t-2 desktop:border-l-2 desktop:border-t-0 border-border px-2"
+>
+  <button
+    id="scroll-to-top"
+    aria-label="Voltar ao topo"
+    class="cursor-pointer p-2 bg-background text-foreground rounded-full hover:text-hover"
+  >
+    <ArrowUp class="w-7 h-7" />
+  </button>
+  <div
+    id="left-top"
+    class="flex desktop:flex-col justify-center items-center gap-4"
+  >
+    <a href="/">
+      <Home class="w-7 h-7 cursor-pointer text-hover" />
+    </a>
+    <button
+      id="toggle-theme"
+      aria-label="Toggle dark/light theme"
+      class="cursor-pointer focus:outline-none rounded-full p-2"
+    >
+      <Lightbulb class="w-7 h-7 hover:text-hover" />
+    </button>
+  </div>
 </aside>

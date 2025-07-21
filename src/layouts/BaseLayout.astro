@@ -1,21 +1,15 @@
 ---
-// Mesmo código inicial
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Aside from '../components/Aside.astro';
-
-import { Lightbulb, ArrowUp, Home } from '@lucide/astro';
-import Social from '../components/Social.astro';
+import Main from '../components/Main.astro';
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const {
-  title,
-  description = 'A personal blog about web development and more.',
-} = Astro.props;
+const { title, description = 'Um blog pessoal' } = Astro.props;
 ---
 
 <!doctype html>
@@ -38,118 +32,11 @@ const {
   <body
     class="grid grid-cols-1 grid-rows-[auto_1fr_auto] desktop:grid-cols-[310px_1fr_48px] desktop:grid-rows-none h-screen"
   >
-    <Header
-      class="flex desktop:flex-col desktop:items-center desktop:py-16 justify-between px-4 py-2 border-b-2 desktop:border-r-2 border-border"
-    >
-      <div
-        id="profile"
-        class="flex desktop:flex-col desktop:gap-0 gap-6 items-center desktop:mb-18"
-      >
-        <img
-          src="/images/perfil.jpeg"
-          alt="Foto de Célio Júnior"
-          class="rounded-full w-12 h-12 desktop:w-24 desktop:h-24 desktop:mb-4"
-          loading="lazy"
-        />
-        <a href="/">
-          <h3 class="text-xl font-semibold desktop:mb-1 hover:text-hover">
-            Célio Júnior
-          </h3>
-        </a>
-        <p class="text-center text-xs text-muted hidden desktop:block">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-          ullamcorper sodales justo, sed vulputate metus tincidunt nec.
-        </p>
-      </div>
-
-      <button
-        id="menu-toggle"
-        aria-label="Toggle mobile menu"
-        aria-expanded="false"
-        class="desktop:hidden flex items-center cursor-pointer hover:text-hover w-6 h-6 self-center"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-
-      <nav
-        id="desktop-nav"
-        class="hidden desktop:flex flex-col gap-3 text-center text-lg"
-      >
-        <a class="hover:text-hover font-medium" href="/">Início</a>
-        <a class="hover:text-hover font-medium" href="/about">Sobre</a>
-        <a class="hover:text-hover font-medium" href="/tags">Tags</a>
-        <a class="hover:text-hover font-medium" href="/laboratory"
-          >Laboratório</a
-        >
-      </nav>
-
-      <Social
-        class="hidden desktop:flex desktop:gap-4 desktop:mt-auto"
-        size="text-3xl"
-      />
-    </Header>
-
-    <main
-      class="relative overflow-auto h-full min-h-screen flex justify-center"
-    >
+    <Header />
+    <Main>
       <slot />
-      <nav
-        id="mobile-menu"
-        class="absolute top-0 left-0 w-full h-full bg-main z-30 flex-col items-center justify-center text-white text-2xl space-y-6 transition-all duration-500 ease-in-out transform translate-x-full opacity-0 desktop:hidden hidden"
-        aria-hidden="true"
-      >
-        <a href="/" class="hover:text-hover transition-colors duration-200"
-          >Início</a
-        >
-        <a href="/about" class="hover:text-hover transition-colors duration-200"
-          >Sobre</a
-        >
-        <a href="/tags" class="hover:text-hover transition-colors duration-200"
-          >Tags</a
-        >
-        <a
-          href="/laboratory"
-          class="hover:text-hover transition-colors duration-200">Laboratório</a
-        >
-
-        <Social class="flex absolute bottom-10 gap-4" size="text-4xl" />
-      </nav>
-    </main>
-
-    <Aside
-      class="flex flex-row-reverse desktop:flex-col-reverse desktop:items-center justify-between desktop:justify-baseline px-2 desktop:py-4 border-t-2 desktop:border-l-2 desktop:border-t-0 border-border px-2"
-    >
-      <button
-        id="scroll-to-top"
-        aria-label="Voltar ao topo"
-        class="cursor-pointer p-2 bg-background text-foreground rounded-full hover:text-hover"
-      >
-        <ArrowUp class="w-7 h-7" />
-      </button>
-      <div
-        id="left-top"
-        class="flex desktop:flex-col justify-center items-center gap-4"
-      >
-        <Home class="w-7 h-7 cursor-pointer text-hover" />
-        <button
-          id="toggle-theme"
-          aria-label="Toggle dark/light theme"
-          class="cursor-pointer focus:outline-none rounded-full p-2"
-        >
-          <Lightbulb class="w-7 h-7 hover:text-hover" />
-        </button>
-      </div>
-    </Aside>
+    </Main>
+    <Aside />
 
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
@@ -158,7 +45,6 @@ const {
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
 
-        // Tema
         toggleThemeBtn?.addEventListener('click', () => {
           body.classList.toggle('dark');
           localStorage.setItem(
@@ -175,14 +61,12 @@ const {
           body.classList.add('dark');
         }
 
-        // Abrir/fechar menu
         const toggleMenu = () => {
           const isOpen = mobileMenu?.classList.contains('translate-x-0');
 
           if (!mobileMenu) return;
 
           if (isOpen) {
-            // Fechar menu
             mobileMenu.classList.remove('translate-x-0', 'opacity-100');
             mobileMenu.classList.add('translate-x-full', 'opacity-0');
 
@@ -201,7 +85,6 @@ const {
               { once: true }
             );
           } else {
-            // Abrir menu
             mobileMenu.classList.remove('hidden');
             mobileMenu.classList.add('flex');
 
@@ -217,7 +100,6 @@ const {
 
         menuToggle?.addEventListener('click', toggleMenu);
 
-        // Fechar com ESC
         document.addEventListener('keydown', (e) => {
           if (
             e.key === 'Escape' &&
@@ -227,7 +109,6 @@ const {
           }
         });
 
-        // Fechar ao redimensionar
         window.addEventListener('resize', () => {
           if (
             window.innerWidth >= 1170 &&

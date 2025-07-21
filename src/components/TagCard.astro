@@ -1,0 +1,10 @@
+---
+const { tag } = Astro.props;
+---
+
+<p>
+  <a
+    href={`/tags/${tag.toLowerCase()}`}
+    class="py-2 px-4 text-xl hover:text-hover">{tag}</a
+  >
+</p>

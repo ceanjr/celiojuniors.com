@@ -1,7 +1,68 @@
 ---
-const { class: classes, ...rest } = Astro.props;
+import Social from '../components/Social.astro';
 ---
 
-<header class={classes} {...rest}>
-  <slot />
+<header
+  class="desktop:relative flex desktop:flex-col desktop:items-center desktop:py-16 justify-between px-4 py-2 border-b-2 desktop:border-r-2 border-border"
+>
+  <div
+    id="profile"
+    class="flex desktop:flex-col desktop:gap-0 gap-6 items-center desktop:mb-18"
+  >
+    <img
+      src="/images/perfil.jpeg"
+      alt="Foto de Célio Júnior"
+      class="rounded-full w-12 h-12 desktop:w-24 desktop:h-24 desktop:mb-4"
+      loading="lazy"
+    />
+    <a href="/">
+      <h3 class="text-xl font-semibold desktop:mb-1 hover:text-hover">
+        Célio Júnior
+      </h3>
+    </a>
+    <p
+      class="text-center text-[0.800rem] text-muted hidden desktop:block leading-[1.50]"
+    >
+      Gosto desse mundão. <br />
+      As vezes não, mas normalmente eu gosto. <br />
+      E gosto de falar besteira. <br />
+      <strong>Escrever é consequência.</strong>
+    </p>
+  </div>
+
+  <button
+    id="menu-toggle"
+    aria-label="Toggle mobile menu"
+    aria-expanded="false"
+    class="desktop:hidden flex items-center cursor-pointer hover:text-hover w-6 h-6 self-center"
+  >
+    <svg
+      class="w-6 h-6"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </button>
+
+  <nav
+    id="desktop-nav"
+    class="hidden desktop:flex flex-col gap-3 text-center text-lg"
+  >
+    <a class="hover:text-hover font-medium" href="/">Início</a>
+    <!-- <a class="hover:text-hover font-medium disabled" href="/about">Sobre</a> -->
+    <a class="hover:text-hover font-medium" href="/tags">Tags</a>
+    <a class="hover:text-hover font-medium disabled" href="/laboratory"
+      >Laboratório</a
+    >
+  </nav>
+
+  <Social
+    class="hidden desktop:flex desktop:gap-4 desktop:mt-auto"
+    size="text-3xl"
+  />
 </header>

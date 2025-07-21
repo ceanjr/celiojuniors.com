@@ -12,10 +12,8 @@ const formatingDate = new Intl.DateTimeFormat('pt-BR', dateFormat);
 const finalDate = formatingDate.format(date);
 ---
 
-<li
-  class="group flex items-center h-28 px-4 py-2 border-b-2 border-border cursor-pointer"
->
-  <a href={`/blog/${post.id}/`}>
+<a href=`/blog/${post.id}/`>
+  <li class="group h-28 px-4 py-2 border-b-2 border-border cursor-pointer">
     <span class="text-xs text-muted">{finalDate}</span>
     <h4 class="text-2xl font-medium group-hover:text-hover">
       {post.data.title}
@@ -23,5 +21,5 @@ const finalDate = formatingDate.format(date);
     <p class="text-muted text-sm group-hover:text-hover">
       {post.data.description}
     </p>
-  </a>
-</li>
+  </li>
+</a>
