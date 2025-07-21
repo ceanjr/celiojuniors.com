@@ -6,72 +6,220 @@ import Aside from '../components/Aside.astro';
 import { Lightbulb } from '@lucide/astro';
 import { Icon } from 'astro-icon/components';
 
-const { title } = Astro.props;
+interface Props {
+  title: string;
+  description?: string; // Added an optional description prop
+}
+
+const {
+  title,
+  description = 'A personal blog about web development and more.',
+} = Astro.props; // Default description
 ---
 
-<html lang="pt-BR">
+<!doctype html>
+<html lang="pt-BR" class="dark">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <meta charset="UTF-8" />
-    <title>{title}</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="dark">
-    <div
-      class="grid grid-cols-1 grid-rows-[auto_1fr_auto] desktop:grid-cols-[310px_1fr_48px] desktop:grid-rows-none min-h-screen"
+  <body
+    class="grid grid-cols-1 grid-rows-[auto_1fr_auto] desktop:grid-cols-[310px_1fr_48px] desktop:grid-rows-none"
+  >
+    <Header
+      class="flex desktop:flex-col desktop:items-center desktop:py-16 justify-between px-4 py-2 border-b-2 desktop:border-r-2 border-border"
     >
-      <Header class="flex flex-col items-center py-16">
-        <div id="profile" class="flex flex-col items-center mb-18">
-          <img
-            src="/images/perfil.jpeg"
-            alt="Foto de Célio Júnior"
-            class="rounded-full w-24 h-24 mb-4"
-          />
-          <h3 class="text-xl mb-1">Célio Júnior</h3>
-          <p class="text-center text-xs text-muted">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-            ullamcorper sodales justo, sed vulputate metus tincidunt nec.
-          </p>
-        </div>
-        <nav class="flex flex-col gap-3 text-center text-lg">
-          <a class="hover:text-hover font-medium" href="/">Início</a>
-          <a class="hover:text-hover font-medium" href="/about">Sobre</a>
-          <a class="hover:text-hover font-medium" href="/tags">Tags</a>
-          <a class="hover:text-hover font-medium" href="/laboratory"
-            >Laboratório</a
-          >
-        </nav>
+      <div
+        id="profile"
+        class="flex desktop:flex-col desktop:gap-0 gap-6 items-center desktop:mb-18"
+      >
+        <img
+          src="/images/perfil.jpeg"
+          alt="Foto de Célio Júnior"
+          class="rounded-full w-12 h-12 desktop:w-24 desktop:h-24 desktop:mb-4"
+          loading="lazy"
+        />
+        <h3 class="text-xl desktop:mb-1">Célio Júnior</h3>
+        <p class="text-center text-xs text-muted hidden desktop:block">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+          ullamcorper sodales justo, sed vulputate metus tincidunt nec.
+        </p>
+      </div>
 
-        <div id="social" class="flex gap-4 mt-auto">
-          <a href="/"
-            ><Icon name="github" class="text-2xl hover:text-hover" /></a
-          >
-          <a href="/"
-            ><Icon name="instagram" class="text-2xl hover:text-hover" /></a
-          >
-          <a href="/"
-            ><Icon name="linkedin" class="text-2xl hover:text-hover" /></a
-          >
-        </div>
-      </Header>
-      <main>
-        <slot />
-      </main>
-      <Aside class="flex flex-col-reverse items-center py-4">
-        <i class="cursor-pointer" id="toggle-theme">
-          <Lightbulb />
-        </i>
-      </Aside>
-    </div>
-    <script>
+      <button
+        id="menu-toggle"
+        aria-label="Toggle mobile menu"
+        aria-expanded="false"
+        class="desktop:hidden flex items-center cursor-pointer hover:text-hover w-6 h-6 self-center"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+
+      <nav
+        id="mobile-menu-overlay"
+        class="fixed inset-0 bg-main bg-opacity-90 backdrop-blur-md z-40 hidden flex-col items-center justify-center text-white text-2xl space-y-6 transition-transform duration-500 ease-in-out transform translate-x-full desktop:hidden"
+        aria-hidden="true"
+      >
+        <a href="/" class="hover:text-hover transition-colors duration-200"
+          >Início</a
+        >
+        <a href="/about" class="hover:text-hover transition-colors duration-200"
+          >Sobre</a
+        >
+        <a href="/tags" class="hover:text-hover transition-colors duration-200"
+          >Tags</a
+        >
+        <a
+          href="/laboratory"
+          class="hover:text-hover transition-colors duration-200">Laboratório</a
+        >
+        <button
+          id="close-menu"
+          aria-label="Close mobile menu"
+          class="absolute top-4 right-4 text-white text-4xl leading-none cursor-pointer"
+        >
+          &times;
+        </button>
+      </nav>
+
+      <nav
+        id="desktop-nav"
+        class="hidden desktop:flex flex-col gap-3 text-center text-lg"
+      >
+        <a class="hover:text-hover font-medium" href="/">Início</a>
+        <a class="hover:text-hover font-medium" href="/about">Sobre</a>
+        <a class="hover:text-hover font-medium" href="/tags">Tags</a>
+        <a class="hover:text-hover font-medium" href="/laboratory"
+          >Laboratório</a
+        >
+      </nav>
+
+      <div
+        id="social"
+        class="hidden desktop:flex desktop:gap-4 desktop:mt-auto"
+      >
+        <a href="/" aria-label="GitHub profile">
+          <Icon name="github" class="text-2xl hover:text-hover" />
+        </a>
+        <a href="/" aria-label="Instagram profile">
+          <Icon name="instagram" class="text-2xl hover:text-hover" />
+        </a>
+        <a href="/" aria-label="LinkedIn profile">
+          <Icon name="linkedin" class="text-2xl hover:text-hover" />
+        </a>
+      </div>
+    </Header>
+
+    <main>
+      <slot />
+    </main>
+
+    <Aside
+      class="flex flex-col-reverse desktop:items-center desktop:py-4 border-t-2 desktop:border-l-2 desktop:border-t-0 border-border px-2"
+    >
+      <button
+        id="toggle-theme"
+        aria-label="Toggle dark/light theme"
+        class="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-full p-2"
+      >
+        <Lightbulb class="w-8 h-8 hover:text-hover" />
+      </button>
+    </Aside>
+
+    <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
-        const toggle = document.getElementById('toggle-theme');
-        toggle.addEventListener('click', () => {
-          document.body.classList.toggle('dark');
+        const toggleThemeBtn = document.getElementById('toggle-theme');
+        const body = document.body;
+
+        toggleThemeBtn?.addEventListener('click', () => {
+          body.classList.toggle('dark');
+          if (body.classList.contains('dark')) {
+            localStorage.setItem('theme', 'dark');
+          } else {
+            localStorage.setItem('theme', 'light');
+          }
+        });
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          body.classList.remove('dark', 'light');
+          body.classList.add(savedTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          body.classList.add('dark');
+        }
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenuOverlay = document.getElementById(
+          'mobile-menu-overlay'
+        );
+        const closeMenu = document.getElementById('close-menu');
+
+        const openMenu = () => {
+          if (mobileMenuOverlay) {
+            mobileMenuOverlay.classList.remove('hidden');
+            requestAnimationFrame(() => {
+              mobileMenuOverlay.classList.remove('translate-x-full');
+              mobileMenuOverlay.classList.add('translate-x-0');
+              mobileMenuOverlay.classList.add('flex');
+              menuToggle?.setAttribute('aria-expanded', 'true');
+              mobileMenuOverlay.setAttribute('aria-hidden', 'false');
+              document.body.style.overflow = 'hidden';
+            });
+          }
+        };
+
+        const closeMenuFunc = () => {
+          if (mobileMenuOverlay) {
+            mobileMenuOverlay.classList.remove('translate-x-0');
+            mobileMenuOverlay.classList.add('translate-x-full');
+            menuToggle?.setAttribute('aria-expanded', 'false');
+            mobileMenuOverlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+
+            mobileMenuOverlay.addEventListener(
+              'transitionend',
+              function handler() {
+                if (mobileMenuOverlay.classList.contains('translate-x-full')) {
+                  mobileMenuOverlay.classList.add('hidden');
+                }
+                mobileMenuOverlay.removeEventListener('transitionend', handler);
+              }
+            );
+          }
+        };
+
+        menuToggle?.addEventListener('click', openMenu);
+        closeMenu?.addEventListener('click', closeMenuFunc);
+
+        document.addEventListener('keydown', (event) => {
+          if (
+            event.key === 'Escape' &&
+            mobileMenuOverlay &&
+            !mobileMenuOverlay.classList.contains('hidden')
+          ) {
+            closeMenuFunc();
+          }
         });
       });
     </script>
