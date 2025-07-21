@@ -1,0 +1,17 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const { class: classes, size: size, ...rest } = Astro.props;
+---
+
+<div id="social" class={classes} {...rest}>
+  <a href="/" aria-label="GitHub profile">
+    <Icon name="github" class=`hover:text-hover ${size}` />
+  </a>
+  <a href="/" aria-label="Instagram profile">
+    <Icon name="instagram" class=`hover:text-hover ${size}` />
+  </a>
+  <a href="/" aria-label="LinkedIn profile">
+    <Icon name="linkedin" class=`hover:text-hover ${size}` />
+  </a>
+</div>

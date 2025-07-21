@@ -1,20 +1,22 @@
 ---
+// Mesmo código inicial
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Aside from '../components/Aside.astro';
 
-import { Lightbulb } from '@lucide/astro';
+import { Lightbulb, ArrowUp } from '@lucide/astro';
 import { Icon } from 'astro-icon/components';
+import Social from '../components/Social.astro';
 
 interface Props {
   title: string;
-  description?: string; // Added an optional description prop
+  description?: string;
 }
 
 const {
   title,
   description = 'A personal blog about web development and more.',
-} = Astro.props; // Default description
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -35,7 +37,7 @@ const {
     />
   </head>
   <body
-    class="grid grid-cols-1 grid-rows-[auto_1fr_auto] desktop:grid-cols-[310px_1fr_48px] desktop:grid-rows-none"
+    class="grid grid-cols-1 grid-rows-[auto_1fr_auto] desktop:grid-cols-[310px_1fr_48px] desktop:grid-rows-none min-h-screen"
   >
     <Header
       class="flex desktop:flex-col desktop:items-center desktop:py-16 justify-between px-4 py-2 border-b-2 desktop:border-r-2 border-border"
@@ -44,13 +46,19 @@ const {
         id="profile"
         class="flex desktop:flex-col desktop:gap-0 gap-6 items-center desktop:mb-18"
       >
-        <img
-          src="/images/perfil.jpeg"
-          alt="Foto de Célio Júnior"
-          class="rounded-full w-12 h-12 desktop:w-24 desktop:h-24 desktop:mb-4"
-          loading="lazy"
-        />
-        <h3 class="text-xl desktop:mb-1">Célio Júnior</h3>
+        <a href="/">
+          <img
+            src="/images/perfil.jpeg"
+            alt="Foto de Célio Júnior"
+            class="rounded-full w-12 h-12 desktop:w-24 desktop:h-24 desktop:mb-4 hover:outline-3 hover:outline-hover"
+            loading="lazy"
+          />
+        </a>
+        <a href="/">
+          <h3 class="text-xl font-semibold desktop:mb-1 hover:text-hover">
+            Célio Júnior
+          </h3>
+        </a>
         <p class="text-center text-xs text-muted hidden desktop:block">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
           ullamcorper sodales justo, sed vulputate metus tincidunt nec.
@@ -77,8 +85,28 @@ const {
       </button>
 
       <nav
-        id="mobile-menu-overlay"
-        class="fixed inset-0 bg-main bg-opacity-90 backdrop-blur-md z-40 hidden flex-col items-center justify-center text-white text-2xl space-y-6 transition-transform duration-500 ease-in-out transform translate-x-full desktop:hidden"
+        id="desktop-nav"
+        class="hidden desktop:flex flex-col gap-3 text-center text-lg"
+      >
+        <a class="hover:text-hover font-medium" href="/">Início</a>
+        <a class="hover:text-hover font-medium" href="/about">Sobre</a>
+        <a class="hover:text-hover font-medium" href="/tags">Tags</a>
+        <a class="hover:text-hover font-medium" href="/laboratory"
+          >Laboratório</a
+        >
+      </nav>
+
+      <Social
+        class="hidden desktop:flex desktop:gap-4 desktop:mt-auto"
+        size="text-3xl"
+      />
+    </Header>
+
+    <main class="relative">
+      <slot />
+      <nav
+        id="mobile-menu"
+        class="absolute top-0 left-0 w-full h-full bg-main z-30 flex-col items-center justify-center text-white text-2xl space-y-6 transition-all duration-500 ease-in-out transform translate-x-full opacity-0 desktop:hidden hidden"
         aria-hidden="true"
       >
         <a href="/" class="hover:text-hover transition-colors duration-200"
@@ -94,54 +122,25 @@ const {
           href="/laboratory"
           class="hover:text-hover transition-colors duration-200">Laboratório</a
         >
-        <button
-          id="close-menu"
-          aria-label="Close mobile menu"
-          class="absolute top-4 right-4 text-white text-4xl leading-none cursor-pointer"
-        >
-          &times;
-        </button>
+
+        <Social class="flex absolute bottom-10 gap-4" size="text-4xl" />
       </nav>
-
-      <nav
-        id="desktop-nav"
-        class="hidden desktop:flex flex-col gap-3 text-center text-lg"
-      >
-        <a class="hover:text-hover font-medium" href="/">Início</a>
-        <a class="hover:text-hover font-medium" href="/about">Sobre</a>
-        <a class="hover:text-hover font-medium" href="/tags">Tags</a>
-        <a class="hover:text-hover font-medium" href="/laboratory"
-          >Laboratório</a
-        >
-      </nav>
-
-      <div
-        id="social"
-        class="hidden desktop:flex desktop:gap-4 desktop:mt-auto"
-      >
-        <a href="/" aria-label="GitHub profile">
-          <Icon name="github" class="text-2xl hover:text-hover" />
-        </a>
-        <a href="/" aria-label="Instagram profile">
-          <Icon name="instagram" class="text-2xl hover:text-hover" />
-        </a>
-        <a href="/" aria-label="LinkedIn profile">
-          <Icon name="linkedin" class="text-2xl hover:text-hover" />
-        </a>
-      </div>
-    </Header>
-
-    <main>
-      <slot />
     </main>
 
     <Aside
-      class="flex flex-col-reverse desktop:items-center desktop:py-4 border-t-2 desktop:border-l-2 desktop:border-t-0 border-border px-2"
+      class="flex flex-row-reverse desktop:flex-col-reverse desktop:items-center justify-between desktop:justify-baseline desktop:py-4 border-t-2 desktop:border-l-2 desktop:border-t-0 border-border px-2"
     >
+      <button
+        id="scroll-to-top"
+        aria-label="Voltar ao topo"
+        class="cursor-pointer p-2 bg-background text-foreground rounded-full hover:text-hover"
+      >
+        <ArrowUp />
+      </button>
       <button
         id="toggle-theme"
         aria-label="Toggle dark/light theme"
-        class="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-full p-2"
+        class="cursor-pointer focus:outline-none rounded-full p-2"
       >
         <Lightbulb class="w-8 h-8 hover:text-hover" />
       </button>
@@ -149,16 +148,18 @@ const {
 
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
-        const toggleThemeBtn = document.getElementById('toggle-theme');
         const body = document.body;
+        const toggleThemeBtn = document.getElementById('toggle-theme');
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
 
+        // Tema
         toggleThemeBtn?.addEventListener('click', () => {
           body.classList.toggle('dark');
-          if (body.classList.contains('dark')) {
-            localStorage.setItem('theme', 'dark');
-          } else {
-            localStorage.setItem('theme', 'light');
-          }
+          localStorage.setItem(
+            'theme',
+            body.classList.contains('dark') ? 'dark' : 'light'
+          );
         });
 
         const savedTheme = localStorage.getItem('theme');
@@ -169,58 +170,74 @@ const {
           body.classList.add('dark');
         }
 
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenuOverlay = document.getElementById(
-          'mobile-menu-overlay'
-        );
-        const closeMenu = document.getElementById('close-menu');
+        // Abrir/fechar menu
+        const toggleMenu = () => {
+          const isOpen = mobileMenu?.classList.contains('translate-x-0');
 
-        const openMenu = () => {
-          if (mobileMenuOverlay) {
-            mobileMenuOverlay.classList.remove('hidden');
-            requestAnimationFrame(() => {
-              mobileMenuOverlay.classList.remove('translate-x-full');
-              mobileMenuOverlay.classList.add('translate-x-0');
-              mobileMenuOverlay.classList.add('flex');
-              menuToggle?.setAttribute('aria-expanded', 'true');
-              mobileMenuOverlay.setAttribute('aria-hidden', 'false');
-              document.body.style.overflow = 'hidden';
-            });
-          }
-        };
+          if (!mobileMenu) return;
 
-        const closeMenuFunc = () => {
-          if (mobileMenuOverlay) {
-            mobileMenuOverlay.classList.remove('translate-x-0');
-            mobileMenuOverlay.classList.add('translate-x-full');
+          if (isOpen) {
+            // Fechar menu
+            mobileMenu.classList.remove('translate-x-0', 'opacity-100');
+            mobileMenu.classList.add('translate-x-full', 'opacity-0');
+
             menuToggle?.setAttribute('aria-expanded', 'false');
-            mobileMenuOverlay.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
+            mobileMenu.setAttribute('aria-hidden', 'true');
 
-            mobileMenuOverlay.addEventListener(
+            mobileMenu.addEventListener(
               'transitionend',
               function handler() {
-                if (mobileMenuOverlay.classList.contains('translate-x-full')) {
-                  mobileMenuOverlay.classList.add('hidden');
+                if (mobileMenu.classList.contains('translate-x-full')) {
+                  mobileMenu.classList.add('hidden');
+                  mobileMenu.classList.remove('flex');
                 }
-                mobileMenuOverlay.removeEventListener('transitionend', handler);
-              }
+                mobileMenu.removeEventListener('transitionend', handler);
+              },
+              { once: true }
             );
+          } else {
+            // Abrir menu
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+
+            void mobileMenu.offsetWidth;
+
+            mobileMenu.classList.remove('translate-x-full', 'opacity-0');
+            mobileMenu.classList.add('translate-x-0', 'opacity-100');
+
+            menuToggle?.setAttribute('aria-expanded', 'true');
+            mobileMenu.setAttribute('aria-hidden', 'false');
           }
         };
 
-        menuToggle?.addEventListener('click', openMenu);
-        closeMenu?.addEventListener('click', closeMenuFunc);
+        menuToggle?.addEventListener('click', toggleMenu);
 
-        document.addEventListener('keydown', (event) => {
+        // Fechar com ESC
+        document.addEventListener('keydown', (e) => {
           if (
-            event.key === 'Escape' &&
-            mobileMenuOverlay &&
-            !mobileMenuOverlay.classList.contains('hidden')
+            e.key === 'Escape' &&
+            mobileMenu?.classList.contains('translate-x-0')
           ) {
-            closeMenuFunc();
+            toggleMenu();
           }
         });
+
+        // Fechar ao redimensionar
+        window.addEventListener('resize', () => {
+          if (
+            window.innerWidth >= 1170 &&
+            mobileMenu?.classList.contains('translate-x-0')
+          ) {
+            toggleMenu();
+          }
+        });
+      });
+
+      const scrollTopBtn = document.getElementById('scroll-to-top');
+      const mainEl = document.querySelector('main');
+
+      scrollTopBtn?.addEventListener('click', () => {
+        mainEl?.scrollIntoView({ behavior: 'smooth' });
       });
     </script>
   </body>
