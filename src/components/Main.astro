@@ -2,21 +2,16 @@
 import Social from '../components/Social.astro';
 ---
 
-<main
-  class="relative overflow-auto desktop:h-full desktop:min-h-screen flex justify-center"
->
+<main class="relative desktop:h-full desktop:min-h-screen flex justify-center">
   <slot />
   <nav
     id="mobile-menu"
-    class="absolute top-0 left-0 w-full h-full bg-main z-30 flex-col items-center justify-center text-white text-2xl space-y-6 transition-all duration-500 ease-in-out transform translate-x-full opacity-0 desktop:hidden hidden"
+    class="fixed top-0 left-0 w-full h-full bg-main z-30 flex-col items-center justify-center text-white text-2xl space-y-6 transition-all duration-500 ease-in-out transform translate-x-full opacity-0 desktop:hidden hidden"
     aria-hidden="true"
   >
     <a href="/" class="hover:text-hover transition-colors duration-200"
       >Início</a
     >
-    <!-- <a href="/about" class="hover:text-hover transition-colors duration-200"
-          >Sobre</a
-        > -->
     <a href="/tags" class="hover:text-hover transition-colors duration-200"
       >Tags</a
     >

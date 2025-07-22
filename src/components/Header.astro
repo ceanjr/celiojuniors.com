@@ -3,7 +3,7 @@ import Social from '../components/Social.astro';
 ---
 
 <header
-  class="desktop:relative flex desktop:flex-col desktop:items-center desktop:py-16 justify-between px-4 py-2 border-b-2 desktop:border-r-2 border-border"
+  class="desktop:relative flex desktop:flex-col desktop:items-center desktop:py-16 justify-between px-4 py-2 border-b-2 desktop:border-r-2 border-border z-40"
 >
   <div
     id="profile"
@@ -23,9 +23,12 @@ import Social from '../components/Social.astro';
     <p
       class="text-center text-[0.800rem] text-muted hidden desktop:block leading-[1.50]"
     >
-      Gosto desse mundão. <br />
-      As vezes não, mas normalmente eu gosto. <br />
-      E gosto de falar besteira. <br />
+      Gosto desse mundão.
+      <br />
+      As vezes não, mas normalmente eu gosto.
+      <br />
+      E gosto de falar besteira.
+      <br />
       <strong>Escrever é consequência.</strong>
     </p>
   </div>
@@ -54,7 +57,6 @@ import Social from '../components/Social.astro';
     class="hidden desktop:flex flex-col gap-3 text-center text-lg"
   >
     <a class="hover:text-hover font-medium" href="/">Início</a>
-    <!-- <a class="hover:text-hover font-medium disabled" href="/about">Sobre</a> -->
     <a class="hover:text-hover font-medium" href="/tags">Tags</a>
     <a class="hover:text-hover font-medium disabled" href="/laboratory"
       >Laboratório</a

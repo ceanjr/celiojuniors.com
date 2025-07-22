@@ -33,6 +33,7 @@ const { title, description = 'Um blog pessoal' } = Astro.props;
     class="grid grid-cols-1 grid-rows-[auto_1fr_auto] desktop:grid-cols-[310px_1fr_48px] desktop:grid-rows-none h-screen"
   >
     <Header />
+
     <Main>
       <slot />
     </Main>
@@ -41,6 +42,7 @@ const { title, description = 'Um blog pessoal' } = Astro.props;
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
         const body = document.body;
+        const html = document.documentElement;
         const toggleThemeBtn = document.getElementById('toggle-theme');
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -52,7 +54,6 @@ const { title, description = 'Um blog pessoal' } = Astro.props;
             body.classList.contains('dark') ? 'dark' : 'light'
           );
         });
-
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
           body.classList.remove('dark', 'light');
@@ -63,15 +64,14 @@ const { title, description = 'Um blog pessoal' } = Astro.props;
 
         const toggleMenu = () => {
           const isOpen = mobileMenu?.classList.contains('translate-x-0');
-
           if (!mobileMenu) return;
 
           if (isOpen) {
             mobileMenu.classList.remove('translate-x-0', 'opacity-100');
             mobileMenu.classList.add('translate-x-full', 'opacity-0');
 
-            menuToggle?.setAttribute('aria-expanded', 'false');
-            mobileMenu.setAttribute('aria-hidden', 'true');
+            body.classList.remove('no-scroll');
+            html.classList.remove('no-scroll');
 
             mobileMenu.addEventListener(
               'transitionend',
@@ -90,8 +90,13 @@ const { title, description = 'Um blog pessoal' } = Astro.props;
 
             void mobileMenu.offsetWidth;
 
-            mobileMenu.classList.remove('translate-x-full', 'opacity-0');
-            mobileMenu.classList.add('translate-x-0', 'opacity-100');
+            requestAnimationFrame(() => {
+              mobileMenu.classList.remove('translate-x-full', 'opacity-0');
+              mobileMenu.classList.add('translate-x-0', 'opacity-100');
+            });
+
+            body.classList.add('no-scroll');
+            html.classList.add('no-scroll');
 
             menuToggle?.setAttribute('aria-expanded', 'true');
             mobileMenu.setAttribute('aria-hidden', 'false');
@@ -99,7 +104,6 @@ const { title, description = 'Um blog pessoal' } = Astro.props;
         };
 
         menuToggle?.addEventListener('click', toggleMenu);
-
         document.addEventListener('keydown', (e) => {
           if (
             e.key === 'Escape' &&
@@ -108,7 +112,6 @@ const { title, description = 'Um blog pessoal' } = Astro.props;
             toggleMenu();
           }
         });
-
         window.addEventListener('resize', () => {
           if (
             window.innerWidth >= 1170 &&

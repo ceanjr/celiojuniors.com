@@ -4,19 +4,19 @@
 @theme {
   --font-sans: 'Montserrat', sans-serif;
 
-  --color-main: #ffffff;
-  --color-primary: #0d1b2a;
-  --color-hover: #00a6f4;
-  --color-border: #bababa;
-  --color-muted: #3d3d3d;
-  --color-scroll: #ffffff86;
+  --color-main: #f2f7f5;
+  --color-primary: #2e2e3a;
+  --color-hover: #ff6ec7;
+  --color-border: #c8c8c8;
+  --color-muted: #656565;
+  --color-scroll: #00000020;
 
-  --color-dark-main: #030712;
-  --color-dark-primary: #ffffff;
-  --color-dark-hover: #00bac9;
-  --color-dark-border: #1b263b;
-  --color-dark-muted: #dbdbdb;
-  --color-dark-scroll: #0d1b2a85;
+  --color-dark-main: #1a1a1d;
+  --color-dark-primary: #f0f0f0;
+  --color-dark-hover: #ff9de2;
+  --color-dark-border: #393646;
+  --color-dark-muted: #a6a6a6;
+  --color-dark-scroll: #ffffff33;
 
   --breakpoint-desktop: 1170px;
   --breakpoint-mobile: 240px;
@@ -92,5 +92,15 @@
     text-decoration: none;
     pointer-events: none;
     opacity: 0.7;
+  }
+
+  html.no-scroll,
+  body.no-scroll {
+    overflow-y: hidden;
+    height: 100vh;
+  }
+
+  .no-scroll main {
+    overflow-y: hidden;
   }
 }
